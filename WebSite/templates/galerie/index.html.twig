@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Terra Incognita-galerie{% endblock %}
+
+{% block body %}
+    <div  class="card bg-dark border border-primary mt-2  shadow rounded  ml-3 mr-3 text-white p-5">
+
+
+
+        {% if app.request.uri>="http://localhost:8001/galerie/?page=2" %}   {{ knp_pagination_render(pagination) }} {% endif %}
+        <div class="mx-auto">
+
+        <h1 >Nos Réalisations</h1>
+            {% if app.user and app.user.roles[0] == "ROLE_ADMIN" %}  <a class="btn btn-outline-warning btn-lg btn-block" href="{{ path('galerie_new') }}" role="button">Enrichir la Galerie</a> {% endif %}
+    </div>
+
+
+
+
+            <div class="mx-auto mt-4">
+
+                <div class="row ">
+                    {% for pag in pagination %}
+
+                    <div class="card col-4 col-sm-4 bg-dark p-3  mx-auto mb-3   border border-secondary  shadow-lg" >
+                        <img src="{{ vich_uploader_asset(pag, 'imageFile') }}" class="card-img-top" alt="picture{{ pag.id }}">
+                        <div class="card-body">
+                            <h4 class="card-title text-center"><u>Auteur:</u><br> {{ pag.auteur }}</h4>
+                            <hr class="bg-secondary">
+
+                            <div class="mx-auto">
+                                <a class="btn btn-outline-danger btn-lg btn-block" href="{{ path('galerie_show', {'id': pag.id}) }}" role="button">Détails {% if app.user and app.user.roles[0] == "ROLE_ADMIN" %}/ administration {% endif %} </a>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    {% else %}
+                        <div class="mx-auto mt-5 border border-danger shadow p-5 text-danger font-weight-bold"> Rien à Afficher pour le moment!</div>
+                    {% endfor %}
+                </div>
+
+                {{ knp_pagination_render(pagination) }}
+
+    </div>
+
+    </div>
+
+
+
+{% endblock %}
+{#
+<h1>pag index</h1>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Photo</th>
+        <th>Auteur</th>
+        <th>Descriptif</th>
+        <th>actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for pag in pags %}
+        <tr>
+            <td>{{ pag.id }}</td>
+            <td>{{ pag.photo }}</td>
+            <td>{{ pag.auteur }}</td>
+            <td>{{ pag.descriptif }}</td>
+            <td>
+                <a href="{{ path('pag_show', {'id': pag.id}) }}">show</a>
+                <a href="{{ path('pag_edit', {'id': pag.id}) }}">edit</a>
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="5">no records found</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<a href="{{ path('pag_new') }}">Create new</a>#}

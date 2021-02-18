@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Parties du corp{% endblock %}
+
+{% block body %}
+
+<div  class="card bg-dark border border-primary mt-2  shadow rounded  ml-3 mr-3 text-white p-3">
+<div class="mx-auto mb-3 mt-2">
+    <h1>Liste des parties du corp</h1>
+    <a class="btn btn-outline-warning mt-2 btn-lg btn-block" href="{{ path('corp_new') }}" role="button">Nouvelle partie du corp</a>
+</div>
+    <table class="table border border-white text-white ">
+        <thead>
+            <tr>
+
+                <th class="border border-white text-white">Partie</th>
+                <th class="border border-white text-white">actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for corp in corps %}
+            <tr>
+
+                <td class="border border-white text-white">{{ corp.partie }}</td>
+                <td class="border border-white text-white ">
+                    <a class="btn btn-outline-primary" href="{{ path('corp_show', {'id': corp.id}) }}" role="button">Détails</a>
+
+                    <a class="btn btn-outline-warning" href="{{ path('corp_edit', {'id': corp.id}) }}">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+</div>
+{% endblock %}

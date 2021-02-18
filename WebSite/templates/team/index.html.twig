@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Terra Incognita-Team{% endblock %}
+
+{% block body %}
+<div  class="card bg-dark border border-primary mt-2  shadow rounded  ml-3 mr-3 text-white p-5">
+    <div class="mx-auto">
+
+        <h1 >Notre Équipe</h1>
+        {% if app.user and app.user.roles[0] == "ROLE_ADMIN" %}  <a class="btn btn-outline-warning btn-lg btn-block" href="{{ path('team_new') }}" role="button">Nouvel équipier</a> {% endif %}
+    </div>
+    <div class="row mt-4">
+
+        {% for team in teams %}
+
+    <div class="card col-5 col-sm-5 bg-dark p-2  mx-auto mb-3   border border-secondary  shadow-lg" >
+        <img src="{{ vich_uploader_asset(team, 'imageFile') }}" class="card-img-top mx-auto mt-2 rounded  photo" alt="picture{{ team.id }}">
+
+        <div class="card-body">
+            <h4 class="card-title text-center mt-1"><u>Auteur:</u><br>{{ team.name }}</h4>
+
+            <hr class="bg-secondary">
+
+            <div class="mx-auto">
+                <a class="btn btn-outline-danger btn-lg btn-block" href="{{ path('team_show', {'id': team.id}) }}" role="button">Détails {% if app.user and app.user.roles[0] == "ROLE_ADMIN" %}/ administration {% endif %} </a>
+
+            </div>
+        </div>
+
+    </div>
+        {% else %}
+            <div class="mx-auto mt-5 border border-danger shadow p-5 text-danger font-weight-bold"> Équipe vide pour le moment!</div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+{% endblock %}
+{#    <h1>Team index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Speciality</th>
+                <th>Filename</th>
+                <th>Updated_at</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for team in teams %}
+            <tr>
+                <td>{{ team.id }}</td>
+                <td>{{ team.Name }}</td>
+                <td>{{ team.speciality }}</td>
+                <td>{{ team.filename }}</td>
+                <td>{{ team.updatedAt ? team.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('team_show', {'id': team.id}) }}">show</a>
+                    <a href="{{ path('team_edit', {'id': team.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('team_new') }}">Create new</a>#}

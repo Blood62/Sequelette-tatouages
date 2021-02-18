@@ -1,0 +1,5 @@
+<form method="post" action="{{ path('devis_delete', {'id': devi.id}) }}" onsubmit="return confirm('Etes vous de vouloir supprimer le devis N°{{ devi.id }}');">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ devi.id) }}">
+    <button class="btn btn-outline-danger btn-lg btn-block mt-3">Supprimer</button>
+</form>

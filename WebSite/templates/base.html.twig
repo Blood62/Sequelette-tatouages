@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr-FR">
+<head>
+    <meta charset="UTF-8">
+   {# <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">#}
+    <title>{% block title %}Terra Incognita{% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+    <!-- Place your kit's code here -->
+    <script src="https://kit.fontawesome.com/0f33ba2530.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="{{ asset("libs/css/base.css") }}">
+
+</head>
+<body  class=" bg-dark" {% if app.request.uri!="http://localhost:8001/admin/devis" %} id="top" onselectstart="return false" oncontextmenu="return false" ondragstart="return false" onMouseOver="window.status='Il est strictement interdit de copier les images sur ce site'; return true;" {% endif %}>
+
+<div id="" class="container-fluid">
+
+
+
+        <nav id="head" class="navbar navbar-dark border border-primary mt-1 shadow rounded p-2  ">
+            <div class="row">
+            <button class="navbar-toggler ml-3 text-white border border-primary shadow" type="button" id="navbarDropdownMenuLink" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                Services
+            </button>
+            <a class="navbar-brand ml-5 rounded-circle " href="{{ path('home_index') }}"> <img id="logo" class="rounded-circle "  src="{{ asset("libs/img/logo2.jpg") }}" alt="Terra-incognita"> </a>
+                {% if app.user!=null %} {% if app.request.uri=="http://localhost:8001/galerie/" %}<a id="devis" class="btn btn-outline-info" href="{{ path('devis_new') }}" role="button">Obtenir un devis approximatif</a> {% endif %} {% endif %}
+            </div>
+
+          <div class="row mr-3">
+                {% if app.user==null %}
+                <a class="btn btn-outline-success mr-3" href="{{ path('app_login') }}" role="button">Connexion</a>
+                <a class="btn btn-outline-warning" href="{{ path('app_register') }}" role="button">Inscription</a>
+                {% endif %}
+                {% if app.user!=null %}
+                    <div id="bonjour" class="text-white text-center  p-1">{#<h4 class="mr-3"><u>Bienvenue :</u></h4>#} {% if app.user and app.user.roles[0] == "ROLE_ADMIN" %} <i id="adm" class="fas fa-exclamation-triangle text-warning "> Administrateur</i><br> {% endif %} {% if app.user and app.user.roles[0] == "ROLE_USER" %} <a class="btn btn-outline-info  " href="{{ path('user_show', {'id': app.user.id}) }}" role="button">Gerer mon compte</a> {% endif %}
+
+                <a class="btn btn-outline-danger  mr-5" href="{{ path('app_logout') }}" role="button">Déconnexion</a>
+                    </div>
+                {% endif %}
+            </div>
+        </nav>
+    </div>
+    <div class="pos-f-t">
+        <div class="collapse border border-primary rounded shadow mt-1 ml-3 mr-3" id="MenuLink">
+            <div class=" bg-dark p-4">
+                <div class="navbar-nav">
+                    <div class="row">
+
+                    <a id="contact" class="nav-item nav-link text-info mr-3 ml-1 zoom" href="{{ path('contact') }}">Contact</a>
+                    <a class="nav-item nav-link text-info mr-3 zoom" href="{{ path('team_index') }}">Notre Team</a>
+                        <a class="nav-item nav-link text-info mr-3 zoom" href="{{ path('galerie_index') }}">Galerie</a>
+                        {% if app.user and app.user.roles[0] == "ROLE_ADMIN" %} <a id="zoom" class="nav-item nav-link text-warning mr-3 " href="{{ path('administration') }}">Administration</a> {% endif %}
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+    {% block body %}{% endblock %}
+
+
+
+
+
+            <div class="card-body bg-dark border border-primary text-primary mt-2 ml-3  mr-3  rounded p-2" >
+                <blockquote class="blockquote  ">
+
+                    <div class="row  ">
+                        <div class="mx-auto p-2">
+                            {% if app.request.uri!="http://localhost:8001/" %}<a href="{{  path('home_index')  }}"><i class="fas fa-home fa-2x"> Acceuil</i></a> {% endif %}
+                            {% if app.request.uri=="http://localhost:8001/" %}   <a id="contact2" href="{{  path('contact')  }}" ><i class="far fa-address-book fa-2x"> Nous Contacter</i></a>{% endif %}
+                        </div>
+                    </div>
+
+                </blockquote>
+                <div class="text-center">
+                <i class=" font-italic  far fa-copyright fa-1x">Terra Iincognita Tattoo Shop</i>
+                </div>
+            </div>
+    </div>
+<script src="{{ asset("libs/js/jquery.js") }}"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="{{ asset("libs/js/base.js") }}"></script>
+{% block javascripts %}{% endblock %}
+</body>
+</html>

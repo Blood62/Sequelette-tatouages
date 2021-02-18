@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User{% endblock %}
+
+{% block body %}
+    <div class="card bg-dark border border-primary mt-2  shadow rounded  ml-3 mr-3 text-white ">
+        <div class="mx-auto bg-dark border border-secondary mt-3 mb-3 p-2 shadow-lg">
+            <div class="card-body">
+
+                <h5 class="card-title  mt-3 "><u>Identifiant:</u><span class="text-success"> {{ user.email }}</span></h5>
+                <p class="card-text mt-2 "><h5><u>Roles:</u></h5>{% if user.roles[0] == "ROLE_ADMIN" %} Administrateur {% else %} Simple utilisateur {% endif %}</p>
+
+                {% if app.user and app.user.roles[0] == "ROLE_ADMIN" %}
+                    <button type="button" id="admin" class="btn btn-outline-warning btn-lg btn-block mt-3">Administration</button>
+                    <div class="admin">
+
+                        {{ include('admin/user/_delete_form.html.twig') }}
+                <a class="btn btn-outline-primary btn-lg btn-block mt-3 " href="{{ path('UserIndex') }}" role="button">Retour à la liste</a></div>{% endif %}
+
+                {% if app.user and app.user.roles[0] == "ROLE_USER" %}
+                    <a class="btn btn-outline-success btn-lg btn-block mt-3 " href="mailto:lilitatouage@yahoo.fr?subject=Demande de rénitialisation du compte ''{{ user.email }}'' sur le site web &body=Bonjour ceci est une demande de réinitialisation du compte: ''{{ user.email }}''  , merci d'avance. " role="button">Demande de rénitialisation de mon compte</a>
+                <a class="btn btn-outline-primary btn-lg btn-block mt-3 " href="{{ path('home_index') }}" role="button">Retour à la liste</a>{% endif %}
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}
+
+
+
+{#    <h1>User</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ user.id }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ user.email }}</td>
+            </tr>
+            <tr>
+                <th>Roles</th>
+                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+            </tr>
+            <tr>
+                <th>Password</th>
+                <td>{{ user.password }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('user_index') }}">back to list</a>
+
+    <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
+
+    {{ include('admin/user/_delete_form.html.twig') }}#}

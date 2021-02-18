@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier un équipier{% endblock %}
+
+{% block body %}
+<div class="bg-dark border border-primary mt-2  shadow rounded p-5 ml-3 mr-3 text-white">
+    <div class="text-center mb-3"><h1><u>Ajout d'un nouvel équipier</u></h1></div>
+
+    {{ include('admin/team/_form.html.twig', {'button_label': 'Sauvegarder'}) }}
+
+
+    <a class="btn btn-outline-danger btn-lg btn-block mt-3" href="{{ path('team_index') }}" role="button">back to list</a>
+</div>
+
+{% endblock %}

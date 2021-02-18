@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Corp{% endblock %}
+
+{% block body %}
+<div class="bg-dark border border-primary mt-2  shadow rounded p-5 ml-3 mr-3 text-white">
+    <h1 class="mb-5 text-center">Modification de la partie du corp N°{{ corp.id }}</h1>
+
+    {{ include('admin/corp/_form.html.twig', {'button_label': 'Modifier'}) }}
+
+    <a class="btn btn-outline-danger btn-lg btn-block mt-3" href="{{ path('corp_index') }}" role="button">Annuler</a>
+
+
+
+</div>
+{% endblock %}

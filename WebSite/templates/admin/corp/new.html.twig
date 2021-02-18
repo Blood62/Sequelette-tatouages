@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Corp{% endblock %}
+
+{% block body %}
+<div class="bg-dark border border-primary mt-2  shadow rounded p-5 ml-3 mr-3 text-white">
+    <div class="text-center mb-3"><h1><u>Ajout d'une partie du corp</u></h1></div>
+
+    {{ include('admin/corp/_form.html.twig') }}
+    <a class="btn btn-outline-danger btn-lg btn-block mt-3" href="{{ path('corp_index') }}" role="button">Annuler</a>
+
+</div>
+{% endblock %}

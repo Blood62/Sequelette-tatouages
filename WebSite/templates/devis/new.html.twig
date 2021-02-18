@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Devis{% endblock %}
+
+{% block body %}
+<div class="bg-dark border border-primary mt-2  shadow rounded p-5 ml-3 mr-3 text-white">
+    <div class="text-center "><h1><u>Demande de devis</u></h1></div>
+
+    {{ include('devis/_form.html.twig') }}
+
+    <a class="btn btn-outline-danger btn-lg btn-block mt-3" href="{{ path('galerie_index') }}" role="button">Annuler</a>
+</div>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tatouage de {{ galerie.auteur }}{% endblock %}
+
+{% block body %}
+
+{% dump(galerie.descriptif) %}
+    <div class="card bg-dark border border-primary mt-2  shadow rounded  ml-3 mr-3 text-white ">
+
+
+        <div class="mx-auto bg-dark border border-secondary mt-3 mb-3 p-2 shadow-lg">
+        <div class="card-body">
+            <img id="card-img" src="{{ vich_uploader_asset(galerie, 'imageFile') }}" class="card-img-top" alt="picture{{ galerie.id }}">
+            <h5 class="card-title  mt-3 "><h4><u>Auteur:</u></h4> <span class="text-success">{{ galerie.auteur }}</span></h5>
+           {% if galerie.descriptif!=null %} <p class="card-text mt-2 "><h5><u>Descriptif:</u></h5> {{ galerie.descriptif }}</p> {% endif %}
+            {% if app.user and app.user.roles[0] == "ROLE_ADMIN" %}
+                <button type="button" id="admin" class="btn btn-outline-warning btn-lg btn-block mt-3">Administration</button>
+                <div class="admin">
+            <a class="btn btn-outline-warning btn-lg btn-block mt-3 " href="{{ path('galerie_edit', {'id': galerie.id}) }}" role="button">Modifier</a>
+            {{ include('admin/galerie/_delete_form.html.twig') }}</div> {% endif %}
+            <a class="btn btn-outline-primary btn-lg btn-block mt-3 " href="{{ path('galerie_index') }}" role="button">Retour à la liste</a>
+        </div>
+        </div>
+
+
+    </div>
+
+
+  {#  <a href="{{ path('galerie_index') }}">back to list</a>
+
+    <a href="{{ path('galerie_edit', {'id': galerie.id}) }}">edit</a>
+
+    {{ include('galerie/_delete_form.html.twig') }}#}
+{% endblock %}

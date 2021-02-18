@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des devis{% endblock %}
+
+{% block body %}
+
+<div  class="card bg-dark border border-primary mt-2  shadow rounded  ml-3 mr-3 text-white p-3">
+
+    {{ knp_pagination_render(pagination) }}
+    <table class="table border border-white text-white">
+        <thead >
+            <tr>
+                <th class="border border-white">Image</th>
+                <th class="border border-white">Prix TTC</th>
+                <th class="border border-white">Commentaire</th>
+                <th class="border border-white">Effectué le</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for pag in pagination %}
+
+            <tr >
+                <td class="border border-white"><img src="{{ vich_uploader_asset(pag, 'imageFile') }}" class="card-img-top devis" alt="picture{{ pag.id }}"></td>
+                <td class="border border-white">{{ (pag.TarifHoraire.valeurTarif* pag.Temp)*1.2 }} €</td>
+                <td class="border border-white">{{ pag.Commentaire }}</td>
+                <td class="border border-white">{{ pag.updatedAt ? pag.updatedAt|date('d-m-Y à H:i:s') : '' }}</td>
+                <td class="border border-white">
+
+
+                    <a class="btn btn-outline-primary btn-lg btn-block" href="{{ path('devis_show', {'id': pag.id}) }}" role="button">Détails</a>
+
+
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">Pas de devis pour le moment</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+
+</div>
+{% endblock %}

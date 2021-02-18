@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TarifHoraire{% endblock %}
+
+{% block body %}
+    <h1>TarifHoraire</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ tarif_horaire.id }}</td>
+            </tr>
+            <tr>
+                <th>ValeurTarif</th>
+                <td>{{ tarif_horaire.valeurTarif }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('tarif_horaire_index') }}">back to list</a>
+
+    <a href="{{ path('tarif_horaire_edit', {'id': tarif_horaire.id}) }}">edit</a>
+
+    {{ include('tarif_horaire/_delete_form.html.twig') }}
+{% endblock %}
